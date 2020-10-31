@@ -7,7 +7,9 @@
 #' column of the given data frame by Diagnosis-Related Group. Accepts argument
 #' of 'mean', 'median' or 'stdev'.
 #'
-#' @return the mean, median, or standard deviation of "Average.Medicare.Payments"
+#' @return a data frame containing one column of Diagnosis-Related Group labels
+#' and one column containing either the mean, median, or standard deviation
+#' of the input variable "Average.Medicare.Payments", to 3 decimal places.
 #' @export
 #'
 #' @examples
