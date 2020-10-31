@@ -1,0 +1,13 @@
+Package: Lab2
+Type: Package
+Title: Graphs and Analyzes Medical Charge Data
+Version: 0.1.0
+Author: Kirsten Bredvik
+Maintainer: Kirsten Bredvik <kbredvik> (GitHub), <krbr2020@gmail.com>
+Description: This package contains functions that require a data frame input. 
+    The data frame must contain medical charges or payments labeled by Diagnosis-Related Group. 
+    The function plot_charges creates a log-scale box plot of medical charges or payments by DRG.
+    The function summary_stats calculates the mean, median, or standard deviation of average medicare payments. 
+License: None
+Encoding: UTF-8
+LazyData: true
