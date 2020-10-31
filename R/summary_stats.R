@@ -1,8 +1,8 @@
 #' Function summary_stats
 #'
-#' @param df a data frame of charges associated with hospital care,
-#' labeled by Diagnosis-Related Groups (DRG) and containing a column labeled
-#' "Average.Medicare.Payments"
+#' @param df a data frame of charges associated with hospital care, including a
+#' column labeled "DRG.Definition" that lists the Diagnosis-Related Group (DRG)
+#' for each charge, and a column labeled "Average.Medicare.Payments"
 #' @param stat a metric to be calculated for the "Average.Medicare.Payments"
 #' column of the given data frame by Diagnosis-Related Group. Accepts argument
 #' of 'mean', 'median' or 'stdev'.
@@ -11,6 +11,8 @@
 #' @export
 #'
 #' @examples
+#' Example data set retrieved from:
+#' https://data.cms.gov/Medicare-Inpatient/Inpatient-Prospective-Payment-System-IPPS-Provider/97k6-zzx3
 #' drg = data(DRG_data.csv)
 #' summary_stats(drg, 'stdev')
 
@@ -26,12 +28,18 @@ summary_stats = function(df, stat) {
               stdev = sd(Average.Medicare.Payments))
   # Return only specified metric
   if (stat == 'mean'){
-    stats %>% select(c(DRG.Definition, mean))
+    stats %>% select(DRG.Definition, mean)
   }
   else if (stat == 'median'){
-    stats %>% select(c(DRG.Definition, median))
+    stats %>% select(DRG.Definition, median)
   }
   else if (stat == 'stdev') {
-    stats %>% select(c(DRG.Definition, stdev))
+    stats %>% select(DRG.Definition, stdev)
   }
+  # Round to 3 decimal places
+  stats = mutate_if(stats,
+                    is.numeric,
+                    round,
+                    digits = 3)
+  return(stats)
 }
