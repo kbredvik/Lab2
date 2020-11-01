@@ -1,4 +1,6 @@
-#' Function summary_stats
+#' Summary Stats
+#'
+#' Average, median, or standard deviation of medicare payments by DRG.
 #'
 #' @param df a data frame of charges associated with hospital care, including a
 #' column labeled "DRG.Definition" that lists the Diagnosis-Related Group (DRG)
@@ -18,28 +20,26 @@
 #' drg = data(DRG_data.csv)
 #' summary_stats(drg, 'stdev')
 
-library(dplyr)
-
 summary_stats = function(df, stat) {
   # Calculate mean, median, and standard deviation of Average Medicare Payments
   # column of a data frame by DRG
   stats = df %>%
-    group_by(DRG.Definition) %>%
-    summarize(mean = mean(Average.Medicare.Payments),
+    dplyr::group_by(DRG.Definition) %>%
+    dplyr::summarize(mean = mean(Average.Medicare.Payments),
               median = median(Average.Medicare.Payments),
               stdev = sd(Average.Medicare.Payments))
   # Return only specified metric
   if (stat == 'mean'){
-    stats %>% select(DRG.Definition, mean)
+    stats %>% dplyr::select(DRG.Definition, mean)
   }
   else if (stat == 'median'){
-    stats %>% select(DRG.Definition, median)
+    stats %>% dplyr::select(DRG.Definition, median)
   }
   else if (stat == 'stdev') {
-    stats %>% select(DRG.Definition, stdev)
+    stats %>% dplyr::select(DRG.Definition, stdev)
   }
   # Round to 3 decimal places
-  stats = mutate_if(stats,
+  stats = dplyr::mutate_if(stats,
                     is.numeric,
                     round,
                     digits = 3)
